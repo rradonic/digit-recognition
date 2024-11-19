@@ -1,0 +1,17 @@
+{
+  "name": "digit-recognition",
+  "version": "1.0.0",
+  "engines": {
+    "npm": ">=9.0.0",
+    "node": ">=19.8.0"
+  },
+  "scripts": {
+    "playground": "node --enable-source-maps dist/playground.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rradonic/digit-recognition.git"
+  },
+  "author": "Ranko Radonic",
+  "license": "ISC"
+}
