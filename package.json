@@ -13,5 +13,8 @@
     "url": "git+https://github.com/rradonic/digit-recognition.git"
   },
   "author": "Ranko Radonic",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.0"
+  }
 }
