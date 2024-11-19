@@ -1,0 +1,11 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    stop_signal: SIGKILL
+    volumes:
+      - digit-recognition:/workspace
+      - ~/.ssh:/root/.ssh
+volumes:
+  digit-recognition:
