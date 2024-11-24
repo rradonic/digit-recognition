@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Playground",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": ["run", "playground"],
+      "runtimeExecutable": "npm"
+    }
+  ]
+}
