@@ -7,4 +7,7 @@ RUN apt-get install -y locales && \
   dpkg-reconfigure --frontend=noninteractive locales
 
 RUN apt-get install -y zsh tmux less
+
+ENV NODE_OPTIONS=--enable-source-maps
+
 CMD ["/bin/sleep", "infinity"]
