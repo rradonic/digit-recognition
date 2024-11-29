@@ -7,7 +7,7 @@
     "node": ">=19.8.0"
   },
   "scripts": {
-    "playground": "node --enable-source-maps dist/playground.js",
+    "playground": "node src/dist/playground.js",
     "test": "npx jest"
   },
   "repository": {
