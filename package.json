@@ -8,7 +8,7 @@
   },
   "scripts": {
     "playground": "node src/dist/playground.js",
-    "test": "npx jest"
+    "test": "node --experimental-vm-modules --no-warnings=ExperimentalWarning node_modules/jest/bin/jest.js test/dist"
   },
   "repository": {
     "type": "git",
