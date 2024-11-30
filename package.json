@@ -7,8 +7,8 @@
     "node": ">=19.8.0"
   },
   "scripts": {
-    "playground": "node src/dist/playground.js",
-    "test": "node --experimental-vm-modules --no-warnings=ExperimentalWarning node_modules/jest/bin/jest.js test/dist"
+    "playground": "node dist/src/playground.js",
+    "test": "node --experimental-vm-modules --no-warnings=ExperimentalWarning node_modules/jest/bin/jest.js dist/test"
   },
   "repository": {
     "type": "git",
