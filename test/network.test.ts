@@ -2,17 +2,15 @@ import { jest, expect, test } from "@jest/globals";
 
 import { matrix } from "mathjs";
 
-// mock the sigmoid function so we can check for nice round numbers when testing
-jest.unstable_mockModule("../src/sigmoid.js", () => ({
-  sigmoid: jest.fn((x) => {
-    return x;
-  }),
-}));
+test("feed forward", async () => {
+  jest.unstable_mockModule("../src/sigmoid.js", () => ({
+    sigmoid: jest.fn((x) => {
+      return x;
+    }),
+  }));
 
-// dynamic import to make sure we pick up the mock above
-const { Network } = await import("../src/network.js");
+  const { Network } = await import("../src/network.js");
 
-test("feed forward", () => {
   const network = new Network(
     [5, 4, 3],
     [
