@@ -12,3 +12,13 @@ export function sigmoid(x: number | Matrix) {
     });
   }
 }
+
+export function sigmoidPrime(x: number | Matrix) {
+  if (typeof x === "number") {
+    return sigmoid(x) * (1 - sigmoid(x));
+  } else if (x instanceof Matrix) {
+    return map(x, (el) => {
+      return sigmoid(el) * (1 - sigmoid(el));
+    });
+  }
+}
