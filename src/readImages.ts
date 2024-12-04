@@ -3,14 +3,14 @@ import fs from "node:fs";
 export function readImages(filePath: string) {
   const buffer = fs.readFileSync(filePath);
 
-  const { dimensions, dataStart } = readDimensions(buffer);
+  const { dimensions, offset } = readDimensions(buffer);
 
   const totalElements = dimensions.reduce((prod, size) => prod * size, 1);
 
   const data = [];
 
   for (let i = 0; i < totalElements; i++) {
-    data.push(buffer.readUInt8(dataStart + i));
+    data.push(buffer.readUInt8(offset + i));
   }
 
   const reshapedData = reshape(data, dimensions);
@@ -35,7 +35,7 @@ function readDimensions(buffer: Buffer) {
     offset += 4;
   }
 
-  return { dimensions, dataStart: offset };
+  return { dimensions, offset };
 }
 
 function reshape(data: number[], dimensions: number[]) {
