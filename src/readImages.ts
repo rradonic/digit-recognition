@@ -9,9 +9,8 @@ export function readImages(filePath: string) {
 
   const data = [];
 
-  for (let i = 0, offset = dataStart; i < totalElements; i++) {
-    data.push(buffer.readUInt8(offset));
-    offset++;
+  for (let i = 0; i < totalElements; i++) {
+    data.push(buffer.readUInt8(dataStart + i));
   }
 
   const reshapedData = reshape(data, dimensions);
