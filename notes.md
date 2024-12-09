@@ -1,3 +1,7 @@
+Testing
+
+- To run tests: `npm run test dist/test`
+
 Mocking ESM modules
 
 - You need to use jest.unstable_mockModule(), not jest.mock()

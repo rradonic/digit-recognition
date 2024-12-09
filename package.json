@@ -9,7 +9,8 @@
   "scripts": {
     "playground": "node dist/src/playground.js",
     "readImages": "node dist/src/readImages.js",
-    "test": "node --experimental-vm-modules --no-warnings=ExperimentalWarning node_modules/jest/bin/jest.js dist/test"
+    "writeImagesToPpm": "node dist/src/util/writeImagesToPpm.js",
+    "test": "node --experimental-vm-modules --no-warnings=ExperimentalWarning node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
