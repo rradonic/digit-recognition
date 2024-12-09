@@ -1,11 +1,10 @@
 import fs from "node:fs";
 
-export function readImages(filePath: string) {
+export function readImages(filePath: string, limit: number = Number.MAX_SAFE_INTEGER) {
   const buffer = fs.readFileSync(filePath);
-
   const { dimensions, offset } = readDimensions(buffer);
-
-  const totalElements = dimensions.reduce((prod, size) => prod * size, 1);
+  const limitedDimensions = [Math.min(dimensions[0], limit), ...dimensions.slice(1)];
+  const totalElements = limitedDimensions.reduce((prod, size) => prod * size, 1);
 
   const data = [];
 
@@ -14,8 +13,8 @@ export function readImages(filePath: string) {
   }
 
   return {
-    dimensions,
-    data: reshape(data, dimensions),
+    dimensions: limitedDimensions,
+    data: reshape(data, limitedDimensions),
   };
 }
 
@@ -50,9 +49,7 @@ function reshape(data: number[], dimensions: number[]): PixelArray {
   const reshaped = [];
 
   for (let i = 0; i < size; i++) {
-    reshaped.push(
-      reshape(data.slice(i * chunkSize, (i + 1) * chunkSize), subDimensions)
-    );
+    reshaped.push(reshape(data.slice(i * chunkSize, (i + 1) * chunkSize), subDimensions));
   }
 
   return reshaped;
