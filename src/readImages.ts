@@ -13,11 +13,9 @@ export function readImages(filePath: string) {
     data.push(buffer.readUInt8(offset + i));
   }
 
-  const reshapedData = reshape(data, dimensions);
-
   return {
     dimensions,
-    data: reshapedData,
+    data: reshape(data, dimensions),
   };
 }
 
@@ -59,9 +57,3 @@ function reshape(data: number[], dimensions: number[]): PixelArray {
 
   return reshaped;
 }
-
-const idxFile = "./data/t10k-images-idx3-ubyte";
-const result = readImages(idxFile);
-
-console.log("Dimensions:", result.dimensions);
-console.log("Data:", result.data);
