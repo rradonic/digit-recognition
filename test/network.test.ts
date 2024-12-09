@@ -3,6 +3,7 @@ import { jest, expect, test } from "@jest/globals";
 import { matrix } from "mathjs";
 
 test("feed forward", async () => {
+  // mock the sigmoid function so we can test nice round numbers
   jest.unstable_mockModule("../src/sigmoid.js", () => ({
     sigmoid: jest.fn((x) => {
       return x;

@@ -1,4 +1,4 @@
-import { random, Matrix, matrix, row, dot, add, MathArray } from "mathjs";
+import { random, Matrix, matrix, multiply, add } from "mathjs";
 
 import { sigmoid } from "./sigmoid.js";
 
@@ -36,15 +36,7 @@ export class Network {
       const weights = this.weights[i];
       const biases = this.biases[i];
 
-      const dotProducts = [];
-
-      for (let j = 0; j < this.sizes[i + 1]; j++) {
-        const r = row(weights, j);
-        dotProducts.push(dot(r.toArray()[0] as MathArray, a.toArray()));
-      }
-
-      a = sigmoid(add(dotProducts, biases) as Matrix);
-      console.log(a);
+      a = sigmoid(add(multiply(weights, a), biases) as Matrix);
     }
 
     return a;
