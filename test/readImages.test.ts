@@ -13,6 +13,14 @@ test("reading training data", async () => {
   expect(data.length).toEqual(10000);
   expect(data[0].length).toEqual(28);
   expect(data[0][0].length).toEqual(28);
+
+  expect(data[0][0]).toEqual([
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  ]);
+
+  expect(data[0][7]).toEqual([
+    0, 0, 0, 0, 0, 0, 84, 185, 159, 151, 60, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  ]);
 });
 
 test("limit", async () => {
@@ -20,8 +28,6 @@ test("limit", async () => {
 
   const dimensions = result.dimensions;
   const data = result.data as number[][][];
-
-  console.log(data);
 
   expect(dimensions).toEqual([3, 28, 28]);
   expect(data.length).toEqual(3);
