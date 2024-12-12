@@ -36,7 +36,7 @@ export class Network {
       const weights = this.weights[i];
       const biases = this.biases[i];
 
-      a = sigmoid(add(multiply(weights, a), biases) as Matrix);
+      a = sigmoid(add(multiply(weights, a), biases)) as Matrix;
     }
 
     return a;

@@ -16,8 +16,8 @@ test("writing PPM files", async () => {
     },
   }));
 
-  jest.unstable_mockModule("../src/readImages.js", () => ({
-    readImages: () => {
+  jest.unstable_mockModule("../src/readIdx.js", () => ({
+    readIdx: () => {
       return {
         dimensions: [2, 2, 3],
         data: [
