@@ -1,10 +1,10 @@
 import fs from "node:fs";
 
-import { readImages } from "./readImages.js";
+import { readIdx } from "./readIdx.js";
 import { TRAINING_IMAGE_FILE } from "./constants.js";
 
 export function writeImagesToPpm(outputDirectory: string, limit?: number) {
-  const result = readImages(TRAINING_IMAGE_FILE, limit);
+  const result = readIdx(TRAINING_IMAGE_FILE, limit);
 
   const data = result.data as number[][][];
 

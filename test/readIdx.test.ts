@@ -1,10 +1,10 @@
 import { expect, test } from "@jest/globals";
 
-import { readImages } from "../src/readImages.js";
-import { TRAINING_IMAGE_FILE } from "../src/constants.js";
+import { readIdx } from "../src/readIdx.js";
+import { TRAINING_IMAGE_FILE, TRAINING_LABEL_FILE } from "../src/constants.js";
 
-test("reading training data", async () => {
-  const result = readImages(TRAINING_IMAGE_FILE);
+test("read training images", async () => {
+  const result = readIdx(TRAINING_IMAGE_FILE);
 
   const dimensions = result.dimensions;
   const data = result.data as number[][][];
@@ -23,8 +23,20 @@ test("reading training data", async () => {
   ]);
 });
 
-test("limit", async () => {
-  const result = readImages(TRAINING_IMAGE_FILE, 3);
+test("read training labels", async () => {
+  const result = readIdx(TRAINING_LABEL_FILE);
+
+  const dimensions = result.dimensions;
+  const data = result.data as number[];
+
+  expect(dimensions).toEqual([10000]);
+  expect(data.length).toEqual(10000);
+
+  expect(data.slice(0, 8)).toEqual([7, 2, 1, 0, 4, 1, 4, 9]);
+});
+
+test("limit argument", async () => {
+  const result = readIdx(TRAINING_IMAGE_FILE, 3);
 
   const dimensions = result.dimensions;
   const data = result.data as number[][][];

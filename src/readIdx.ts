@@ -1,6 +1,6 @@
 import fs from "node:fs";
 
-export function readImages(filePath: string, limit: number = Number.MAX_SAFE_INTEGER) {
+export function readIdx(filePath: string, limit: number = Number.MAX_SAFE_INTEGER) {
   const buffer = fs.readFileSync(filePath);
   const { dimensions, offset } = readDimensions(buffer);
   const limitedDimensions = [Math.min(dimensions[0], limit), ...dimensions.slice(1)];
