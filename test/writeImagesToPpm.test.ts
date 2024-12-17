@@ -36,7 +36,12 @@ test("writing PPM files", async () => {
 
   const { writeImagesToPpm } = await import("../src/writeImagesToPpm.js");
 
+  // silence console output, we don't need to see progress indicators from writeImagesToPpm here
+  const original = console.log;
+
+  console.log = jest.fn();
   writeImagesToPpm(PPM_DIRECTORY);
+  console.log = original;
 
   const header = "P3\n28 28\n255\n";
   const pixels1 = "1 1 1\n2 2 2\n3 3 3\n4 4 4\n5 5 5\n6 6 6\n";
