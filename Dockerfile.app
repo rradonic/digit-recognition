@@ -6,7 +6,7 @@ RUN apt-get install -y locales && \
   sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
   dpkg-reconfigure --frontend=noninteractive locales
 
-RUN apt-get install -y zsh tmux less
+RUN apt-get install -y zsh tmux less python3 python-is-python3 libxi-dev libgl-dev
 
 ENV NODE_OPTIONS=--enable-source-maps
 
