@@ -1,17 +1,17 @@
-import { random, Matrix, matrix, multiply, add } from "mathjs";
+import * as tf from "@tensorflow/tfjs";
 
 import { sigmoid } from "./sigmoid.js";
 
 export class Network {
   numLayers: number;
   sizes: number[];
-  weights: Matrix[];
-  biases: Matrix[];
+  weights: tf.Tensor[];
+  biases: tf.Tensor[];
 
   constructor(sizes: number[]);
-  constructor(sizes: number[], weights: Matrix[], biases: Matrix[]);
+  constructor(sizes: number[], weights: tf.Tensor[], biases: tf.Tensor[]);
 
-  constructor(sizes: number[], weights?: Matrix[], biases?: Matrix[]) {
+  constructor(sizes: number[], weights?: tf.Tensor[], biases?: tf.Tensor[]) {
     this.numLayers = sizes.length;
     this.sizes = sizes;
 
@@ -26,19 +26,18 @@ export class Network {
     this.biases = [];
 
     for (let i = 1; i < this.sizes.length; i++) {
-      this.biases.push(matrix(random([this.sizes[i], 1])));
-      this.weights.push(matrix(random([this.sizes[i], this.sizes[i - 1]])));
+      this.biases.push(tf.randomNormal([this.sizes[i], 1]));
+      this.weights.push(tf.randomNormal([this.sizes[i + 1], this.sizes[i]]));
     }
   }
 
-  feedForward(a: Matrix) {
-    for (let i = 0; i < this.sizes.length - 1; i++) {
-      const weights = this.weights[i];
-      const biases = this.biases[i];
+  feedForward(a: tf.Tensor) {
+    let layer = a;
 
-      a = sigmoid(add(multiply(weights, a), biases)) as Matrix;
+    for (let i = 0; i < this.sizes.length - 1; i++) {
+      layer = sigmoid(tf.add(tf.matMul(this.weights[i], layer), this.biases[i]));
     }
 
-    return a;
+    return layer;
   }
 }
