@@ -54,8 +54,7 @@ export class Network {
         const miniBatch = trainingData.slice(j, j + miniBatchSize);
 
         console.log(`Mini batch starting at ${j}`);
-        // TODO
-        // this.processMiniBatch(miniBatch, eta);
+        this.processMiniBatch(miniBatch, eta);
       }
 
       // TODO
@@ -66,5 +65,20 @@ export class Network {
       //   console.log(`Epoch ${i} complete`);
       // }
     }
+  }
+
+  processMiniBatch(miniBatch: TrainingPair[], eta: number) {
+    let nablaB = this.biases.map((b) => tf.zerosLike(b));
+    let nablaW = this.weights.map((w) => tf.zerosLike(w));
+
+    for (const [x, y] of miniBatch) {
+      const [deltaNablaB, deltaNablaW] = this.backprop(x, y);
+
+      nablaB = nablaB.map((nb, i) => tf.add(nb, deltaNablaB[i]));
+      nablaW = nablaW.map((nw, i) => tf.add(nw, deltaNablaW[i]));
+    }
+
+    this.weights = this.weights.map((w, i) => tf.sub(w, tf.mul(eta / miniBatch.length, nablaW[i])));
+    this.biases = this.biases.map((b, i) => tf.sub(b, tf.mul(eta / miniBatch.length, nablaB[i])));
   }
 }
