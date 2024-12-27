@@ -57,7 +57,8 @@ export class Network {
       }
 
       if (testData) {
-        console.log(`Epoch ${i}: ${this.evaluate(testData)} / ${testData.length}`);
+        const evaluation = this.evaluate(testData);
+        console.log(`Epoch ${i}: ${evaluation} / ${testData.length}`);
       } else {
         console.log(`Epoch ${i} complete`);
       }
@@ -77,6 +78,31 @@ export class Network {
 
     this.weights = this.weights.map((w, i) => tf.sub(w, tf.mul(eta / miniBatch.length, nablaW[i])));
     this.biases = this.biases.map((b, i) => tf.sub(b, tf.mul(eta / miniBatch.length, nablaB[i])));
+  }
+
+  backPropagate(x: tf.Tensor, y: tf.Tensor) {
+    const nablaB = this.biases.map((b) => tf.zerosLike(b));
+    const nablaW = this.weights.map((w) => tf.zerosLike(w));
+
+    let activation = x;
+    const activations = [x];
+    const zs = [];
+
+    for (let i = 0; i < this.biases.length; i++) {
+      const z = tf.add(tf.matMul(this.weights[i], activation), this.biases[i]);
+
+      zs.push(z);
+      activation = sigmoid(z);
+      activations.push(activation);
+    }
+
+    // TODO
+
+    return [nablaB, nablaW];
+  }
+
+  costDerivative(outputActivations: tf.Tensor, y: tf.Tensor) {
+    return tf.sub(outputActivations, y);
   }
 
   evaluate(testData: TestPair[]) {
