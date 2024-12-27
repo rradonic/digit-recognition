@@ -96,7 +96,30 @@ export class Network {
       activations.push(activation);
     }
 
-    // TODO
+    // BP equation 1 from the book
+    const cd = this.costDerivative(activations[activations.length - 1], y);
+    const sp = sigmoidPrime(zs[zs.length - 1]);
+    let delta = tf.mul(cd, sp);
+
+    // BP equation 3
+    nablaB[nablaB.length - 1] = delta;
+
+    // BP equation 4
+    nablaW[nablaW.length - 1] = tf.matMul(delta, tf.transpose(activations[activations.length - 2]));
+
+    for (let i = 2; i < this.sizes.length; i++) {
+      const z = zs[zs.length - i];
+      const sp = sigmoidPrime(z);
+
+      // BP equation 2
+      delta = tf.mul(tf.matMul(tf.transpose(this.weights[this.weights.length - i + 1]), delta), sp);
+
+      nablaB[nablaB.length - i] = delta;
+      nablaW[nablaW.length - i] = tf.matMul(
+        delta,
+        tf.transpose(activations[activations.length - i - 1])
+      );
+    }
 
     return [nablaB, nablaW];
   }
