@@ -53,17 +53,14 @@ export class Network {
       for (let j = 0; j < trainingData.length; j += miniBatchSize) {
         const miniBatch = trainingData.slice(j, j + miniBatchSize);
 
-        console.log(`Mini batch starting at ${j}`);
         this.processMiniBatch(miniBatch, eta);
       }
 
-      // TODO
-      // if (testData) {
-      //   const evaluation = this.evaluate(testData);
-      //   console.log(`Epoch ${i}: ${evaluation} / ${testData.length}`);
-      // } else {
-      //   console.log(`Epoch ${i} complete`);
-      // }
+      if (testData) {
+        console.log(`Epoch ${i}: ${this.evaluate(testData)} / ${testData.length}`);
+      } else {
+        console.log(`Epoch ${i} complete`);
+      }
     }
   }
 
@@ -72,7 +69,7 @@ export class Network {
     let nablaW = this.weights.map((w) => tf.zerosLike(w));
 
     for (const [x, y] of miniBatch) {
-      const [deltaNablaB, deltaNablaW] = this.backprop(x, y);
+      const [deltaNablaB, deltaNablaW] = this.backPropagate(x, y);
 
       nablaB = nablaB.map((nb, i) => tf.add(nb, deltaNablaB[i]));
       nablaW = nablaW.map((nw, i) => tf.add(nw, deltaNablaW[i]));
@@ -80,5 +77,13 @@ export class Network {
 
     this.weights = this.weights.map((w, i) => tf.sub(w, tf.mul(eta / miniBatch.length, nablaW[i])));
     this.biases = this.biases.map((b, i) => tf.sub(b, tf.mul(eta / miniBatch.length, nablaB[i])));
+  }
+
+  evaluate(testData: TestPair[]) {
+    const testResults = testData.map(([x, y]) => {
+      return [tf.argMax(this.feedForward(x)).dataSync()[0], y];
+    });
+
+    return testResults.reduce((sum, [x, y]) => sum + (x === y ? 1 : 0), 0);
   }
 }
