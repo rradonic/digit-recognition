@@ -1,11 +1,9 @@
-import { Matrix, map, exp, dotMultiply, subtract } from "mathjs";
+import * as tf from "@tensorflow/tfjs";
 
-export function sigmoid(x: Matrix | number[]) {
-  return map(x, (el) => {
-    return 1 / (1 + exp(-el));
-  });
+export function sigmoid(z: tf.Tensor) {
+  return tf.div(1.0, tf.add(1.0, tf.exp(tf.neg(z))));
 }
 
-export function sigmoidPrime(x: Matrix | number[]) {
-  return dotMultiply(sigmoid(x), subtract(1, sigmoid(x)));
+export function sigmoidPrime(z: tf.Tensor) {
+  return tf.mul(sigmoid(z), tf.sub(1, sigmoid(z)));
 }
