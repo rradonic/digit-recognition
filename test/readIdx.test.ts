@@ -1,10 +1,10 @@
 import { expect, test } from "@jest/globals";
 
 import { readIdx } from "../src/readIdx.js";
-import { TRAINING_IMAGE_FILE, TRAINING_LABEL_FILE } from "../src/constants.js";
+import { TEST_IMAGE_FILE, TEST_LABEL_FILE } from "../src/constants.js";
 
 test("read training images", async () => {
-  const result = readIdx(TRAINING_IMAGE_FILE);
+  const result = readIdx(TEST_IMAGE_FILE);
 
   const dimensions = result.dimensions;
   const data = result.data as number[][][];
@@ -24,7 +24,7 @@ test("read training images", async () => {
 });
 
 test("read training labels", async () => {
-  const result = readIdx(TRAINING_LABEL_FILE);
+  const result = readIdx(TEST_LABEL_FILE);
 
   const dimensions = result.dimensions;
   const data = result.data as number[];
@@ -36,7 +36,7 @@ test("read training labels", async () => {
 });
 
 test("limit argument", async () => {
-  const result = readIdx(TRAINING_IMAGE_FILE, 3);
+  const result = readIdx(TEST_IMAGE_FILE, 3);
 
   const dimensions = result.dimensions;
   const data = result.data as number[][][];
