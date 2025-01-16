@@ -8,6 +8,7 @@
   },
   "scripts": {
     "tsc": "tsc --build --watch",
+    "train": "node dist/src/train.js",
     "playground": "node dist/src/playground.js",
     "test": "node --experimental-vm-modules --no-warnings=ExperimentalWarning node_modules/jest/bin/jest.js"
   },
